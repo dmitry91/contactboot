@@ -1,6 +1,5 @@
 # contactboot
 share project
-#image
 
 ![Build Status](https://travis-ci.org/dmitry91/contactboot.svg?branch=master)
 
