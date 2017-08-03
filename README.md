@@ -1,7 +1,7 @@
 # contactboot
 share project
 #image
-https://travis-ci.org/dmitry91/contactboot.svg?branch=master
+[![Build Status](https://travis-ci.org/dmitry91/contactboot.svg?branch=master)
 
 1.Создать базу MySQL
 create database contacts;
