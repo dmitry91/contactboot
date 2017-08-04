@@ -1,5 +1,6 @@
 # contactboot
 share project
+[![Build Status](https://travis-ci.org/dmitry91/contactboot.svg?branch=master)](https://travis-ci.org/dmitry91/contactboot)
 
 1.Создать базу MySQL
 create database contacts;
@@ -16,4 +17,4 @@ INSERT INTO user (name)VALUES('vasya'); и тд.
 
 3.Запускал на Tomcat 9.0.0.M1
 
-[![Build Status](https://travis-ci.org/dmitry91/contactboot.svg?branch=master)
+
