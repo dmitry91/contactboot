@@ -20,17 +20,14 @@ import java.util.List;
 @RequestMapping("/hello")
 public class UserController {
 
-
 @Autowired
 UserRepository userRepository;
 
-    FilterRegEx filterRegEx;
+    private FilterRegEx filterRegEx;
 
     public UserController() {
         filterRegEx = new FilterRegEx();
     }
-
-
 
     @RequestMapping("/")
     public String welcome() {
@@ -41,7 +38,6 @@ UserRepository userRepository;
     public ResponseEntity<String> listAllUsers() {
         return new ResponseEntity<String>(String.valueOf(userRepository.findAll()), HttpStatus.OK);
     }
-
 
     @RequestMapping(value = "/contacts", method = RequestMethod.GET)
     public ResponseEntity<?> getUser(@RequestParam String nameFilter) {

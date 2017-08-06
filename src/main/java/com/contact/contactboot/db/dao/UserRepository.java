@@ -12,11 +12,14 @@ import java.util.List;
 public class UserRepository {
 
     @Autowired
-    private JdbcTemplate jdbcTemplate;
+    private final JdbcTemplate jdbcTemplate;
+
+    public UserRepository(JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
+    }
 
     // Find all users
     public List<User> findAll() {
-
         List<User> result = jdbcTemplate.query(
                 "SELECT * FROM user",
                 (rs, rowNum) -> new User(rs.getInt("id"),
@@ -26,7 +29,7 @@ public class UserRepository {
     }
 
     // Add new user
-    public void addCustomer(String name) {
+    public void addUser(String name) {
         jdbcTemplate.update("INSERT INTO user(name) VALUES (?)", name);
     }
 
