@@ -42,9 +42,7 @@ public class UserControllerTest {
         user.add(new User(2, "Ivan"));
         user.add(new User(3, "Petro"));
 
-        when(userRepository.findAll()).thenReturn(user);
-        //Do not output items in which there is 'a'
-        ResponseEntity s = uc.getUser(".*a.*$");
-        Assert.assertEquals(s.getBody(), user.subList(2,3).toString());
+        when(userRepository.findLike("^P.*")).thenReturn(user.subList(2,3));
+        Assert.assertEquals(userRepository.findLike("^P.*"), user.subList(2,3));
     }
 }
