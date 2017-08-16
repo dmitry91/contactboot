@@ -5,6 +5,7 @@ import com.contact.contactboot.db.entities.User;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
+import java.util.regex.PatternSyntaxException;
 
 /**
  * We filter the array by the regular expression
@@ -24,4 +25,17 @@ public class FilterRegEx {
         }
         return matches;
     }
+
+    public String parseRegexToNotLike(String regex) throws PatternSyntaxException {
+        //We use for validation, if there is no valid throw exception
+        Pattern.compile(regex);
+
+        regex = regex.replace("^", "%");
+        regex = regex.replace("$", "%");
+        regex = regex.replace(".*", "%");
+        regex = "\'" + regex;
+        regex = regex + "\'";
+        return regex;
+    }
+
 }

@@ -31,8 +31,8 @@ public class User {
         this.name = name;
     }
 
-    @Override
-    public String toString() {
+    //return json format User data
+    public String toJson() {
         ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
         try {
             return ow.writeValueAsString(this);
@@ -40,5 +40,13 @@ public class User {
             e.printStackTrace();
         }
         return "";
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                '}';
     }
 }

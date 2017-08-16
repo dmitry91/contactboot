@@ -28,6 +28,16 @@ public class UserRepository {
         return result;
     }
 
+    // Find NOT LIKE Filter users
+    public List<User> findLike(String nameLike) {
+        List<User> result = jdbcTemplate.query(
+                "SELECT * FROM user WHERE name NOT LIKE" + nameLike,
+                (rs, rowNum) -> new User(rs.getInt("id"),
+                        rs.getString("name"))
+        );
+        return result;
+    }
+
     // Add new user
     public void addUser(String name) {
         jdbcTemplate.update("INSERT INTO user(name) VALUES (?)", name);

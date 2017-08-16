@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
+import java.util.regex.PatternSyntaxException;
+import java.util.stream.Collectors;
 
 
 @Controller
@@ -36,12 +38,23 @@ UserRepository userRepository;
 
     @RequestMapping(value = "/contacts/", method = RequestMethod.GET)
     public ResponseEntity<String> listAllUsers() {
-        return new ResponseEntity<String>(String.valueOf(userRepository.findAll()), HttpStatus.OK);
+        List<User> list = userRepository.findAll();
+        //print Json string from List
+        return new ResponseEntity<String>(String.valueOf(list.stream().map(User::toJson).collect(Collectors.toList())), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/contacts", method = RequestMethod.GET)
     public ResponseEntity<?> getUser(@RequestParam String nameFilter) {
-        List<User> list = filterRegEx.getMatchingStrings(userRepository.findAll(),nameFilter);
-        return new ResponseEntity<String>(list.toString(), HttpStatus.OK);
+        try {
+            List<User> list = userRepository.findLike(filterRegEx.parseRegexToNotLike(nameFilter));
+            if (!nameFilter.isEmpty() && !list.isEmpty()) {
+                return new ResponseEntity<String>(String.valueOf(list.stream().map(User::toJson).collect(Collectors.toList())), HttpStatus.OK);
+            } else {
+                //regular expression is empty or not match, return empty result
+                return new ResponseEntity<String>("empty result", HttpStatus.OK);
+            }
+        } catch (PatternSyntaxException exception) {
+            return new ResponseEntity<String>(String.valueOf("Regular expression is not valid"), HttpStatus.OK);
+        }
     }
 }
